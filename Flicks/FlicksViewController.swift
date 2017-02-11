@@ -79,6 +79,8 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "FlicksCell", for: indexPath) as! MovieCell
         
         let movie = movies?[indexPath.row]
@@ -92,8 +94,17 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         let baseURL = "https://image.tmdb.org/t/p/w500"
         let imageUrl = NSURL(string: baseURL + posterPath)
         cell.posterView?.setImageWith(imageUrl! as URL)
-            
+        
         }
+        
+//        cell.selectionStyle = .none
+        
+        //Changing selection effect of the cell
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor(red:244/255, green: 170/255 , blue: 66/255, alpha: 1)
+        cell.selectedBackgroundView = backgroundView
+        
+        
         return cell
     }
     
@@ -149,6 +160,9 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         
         let detailViewController = segue.destination as! DetailViewController
         detailViewController.movie = movie
+        
+        //Deselecting cell when back is pressed
+        tableView.deselectRow(at: indexPath!, animated: true)
         
     }
  
